@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  accounts     Account[]
+  trades       Trade[]
+  strategies   Strategy[]
+}
+
+model Account {
+  id                  String  @id @default(cuid())
+  userId              String
+  user                User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name                String
+  startingBalance     Float
+  currency            String  @default("USD")
+  maxDrawdownLimitPct Float   @default(10)
+  dailyLossLimit      Float   @default(0)
+  trades              Trade[]
+}
+
+model Trade {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountId     String
+  account       Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  direction     String    @default("LONG")
+  assetClass    String
+  symbol        String
+  entryPrice    Float
+  stopLoss      Float
+  exitPrice     Float?
+  size          Float
+  leverage      Float     @default(1)
+  fees          Float     @default(0)
+  entryTime     DateTime
+  exitTime      DateTime?
+  timeframe     String    @default("5m")
+  session       String    @default("NY Open / ORB")
+  grade         Int       @default(3)
+  tags          String[]
+  rules         String[]
+  mistakes      String[]
+  notes         String    @default("")
+  screenshotUrl String    @default("")
+  risk          Float
+  pnl           Float?
+  rMultiple     Float?
+  status        String    @default("OPEN")
+  @@index([userId, accountId])
+}
+
+model Strategy {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  direction    String   @default("BOTH")
+  accent       String   @default("iris")
+  description  String   @default("")
+  customFields Json     @default("[]")
+  pdfName      String?
+  pdfSize      Int?
+  pdfData      Bytes?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  @@index([userId])
+}

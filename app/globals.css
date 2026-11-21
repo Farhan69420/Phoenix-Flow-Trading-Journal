@@ -1,0 +1,253 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-ink text-slate-100 antialiased transition-colors duration-300;
+  font-variant-numeric: tabular-nums;
+  min-height: 100vh;
+}
+
+html.light body {
+  background-color: #f5f7ff;
+  color: #0f172a;
+}
+
+@keyframes nebulaFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate3d(18px, -14px, 0) scale(1.06);
+    opacity: 1;
+  }
+}
+
+.nebula-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(95px);
+  animation: nebulaFloat 22s ease-in-out infinite;
+}
+
+/* Subtle cosmic scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 140, 255, 0.28) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(139, 140, 255, 0.28);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 140, 255, 0.48);
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-indigo-200/[0.09] bg-[#0a1024]/70 p-5 backdrop-blur-md transition-colors duration-300;
+    box-shadow: inset 0 1px 0 rgba(199, 210, 254, 0.08), 0 14px 36px -14px rgba(0, 0, 0, 0.65);
+  }
+  .card {
+    @apply panel;
+  }
+  .inp {
+    @apply w-full rounded-lg border border-indigo-200/15 bg-[#050916]/75 px-3 py-2 text-sm text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-iris focus:ring-2 focus:ring-iris/30;
+  }
+  .btn {
+    @apply inline-flex items-center gap-1.5 rounded-lg border border-indigo-200/15 bg-white/[0.05] px-3 py-2 text-sm text-slate-200 transition hover:border-indigo-200/25 hover:bg-white/[0.1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-iris;
+  }
+  .btn-primary {
+    @apply btn border-indigo-300/30 bg-gradient-to-r from-indigo-500 to-violet-500 font-semibold text-white shadow-[0_6px_24px_-6px_rgba(99,102,241,0.65)] hover:brightness-110;
+  }
+  .btn-gold {
+    @apply btn-primary;
+  }
+  .chip {
+    @apply cursor-pointer rounded-full border border-indigo-200/15 bg-white/[0.03] px-3 py-1 text-xs text-slate-300 transition hover:border-iris/60 hover:bg-iris/10;
+  }
+  .chip-on {
+    @apply border-iris/70 bg-iris/20 text-indigo-200;
+  }
+  .lbl {
+    @apply mb-1.5 block text-xs font-medium text-slate-400;
+  }
+  .icon-btn {
+    @apply rounded-md p-1.5 text-slate-400 transition hover:bg-white/10 hover:text-slate-100;
+  }
+  .theme-toggle {
+    @apply border-indigo-200/15 bg-white/[0.06] text-slate-200 hover:border-iris/50 hover:bg-white/[0.12];
+  }
+}
+
+/* ==========================================================================
+   Light Mode Comprehensive Adaptive Overrides
+   ========================================================================== */
+html.light .panel {
+  border-color: rgba(99, 102, 241, 0.14);
+  background-color: rgba(255, 255, 255, 0.78);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 14px 36px -18px rgba(30, 41, 59, 0.16);
+}
+
+html.light .inp {
+  border-color: rgba(99, 102, 241, 0.2);
+  background-color: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+}
+html.light .inp::placeholder {
+  color: #94a3b8;
+}
+
+html.light .btn {
+  border-color: rgba(99, 102, 241, 0.18);
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #1e293b;
+}
+html.light .btn:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  background-color: rgba(238, 242, 255, 0.95);
+}
+html.light .btn-primary {
+  border-color: transparent;
+  background-image: linear-gradient(to right, #4f46e5, #7c3aed);
+  color: #ffffff;
+  box-shadow: 0 8px 24px -8px rgba(79, 70, 229, 0.55);
+}
+
+html.light .chip {
+  border-color: rgba(99, 102, 241, 0.18);
+  background-color: rgba(255, 255, 255, 0.75);
+  color: #475569;
+}
+html.light .chip:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+  background-color: rgba(238, 242, 255, 0.9);
+  color: #1e1b4b;
+}
+html.light .chip-on {
+  border-color: rgba(79, 70, 229, 0.45);
+  background-color: rgba(99, 102, 241, 0.14);
+  color: #3730a3;
+}
+
+html.light .lbl {
+  color: #475569;
+}
+
+html.light .icon-btn {
+  color: #64748b;
+}
+html.light .icon-btn:hover {
+  background-color: rgba(99, 102, 241, 0.1);
+  color: #0f172a;
+}
+
+html.light .theme-toggle {
+  border-color: rgba(99, 102, 241, 0.2);
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #1e293b;
+}
+html.light .theme-toggle:hover {
+  border-color: rgba(99, 102, 241, 0.45);
+  background-color: #eef2ff;
+}
+
+/* Adaptive app-shell surfaces for Dashboard, Strategies, Login */
+html.light .app-sidebar {
+  border-color: rgba(99, 102, 241, 0.14);
+  background-color: rgba(255, 255, 255, 0.82);
+}
+
+html.light .app-drawer {
+  border-color: rgba(99, 102, 241, 0.16);
+  background-color: rgba(248, 250, 255, 0.96);
+}
+
+html.light .app-modal {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+}
+
+html.light .app-subcard {
+  border-color: rgba(99, 102, 241, 0.14);
+  background-color: rgba(241, 245, 255, 0.72);
+}
+
+/* Ensure dark-first text utilities flip cleanly in light mode inside .theme-scope */
+html.light .theme-scope .text-white:not(.btn-primary):not(.keep-white) {
+  color: #0f172a;
+}
+html.light .theme-scope .text-slate-100 {
+  color: #0f172a;
+}
+html.light .theme-scope .text-slate-200 {
+  color: #1e293b;
+}
+html.light .theme-scope .text-slate-300,
+html.light .theme-scope .text-slate-300\/80,
+html.light .theme-scope .text-slate-300\/90 {
+  color: #334155;
+}
+html.light .theme-scope .text-slate-400 {
+  color: #64748b;
+}
+html.light .theme-scope .text-indigo-200,
+html.light .theme-scope .text-indigo-300\/80 {
+  color: #4338ca;
+}
+html.light .theme-scope .text-indigo-200\/60 {
+  color: #6366f1;
+}
+html.light .theme-scope .bg-white\/5,
+html.light .theme-scope .bg-white\/\[0\.02\],
+html.light .theme-scope .bg-white\/\[0\.03\],
+html.light .theme-scope .bg-white\/\[0\.04\],
+html.light .theme-scope .bg-white\/\[0\.05\],
+html.light .theme-scope .bg-white\/\[0\.08\] {
+  background-color: rgba(99, 102, 241, 0.06);
+}
+html.light .theme-scope .bg-\[\#050916\]\/50,
+html.light .theme-scope .bg-\[\#050916\]\/60,
+html.light .theme-scope .bg-\[\#0a1024\]\/60 {
+  background-color: rgba(241, 245, 255, 0.78);
+}
+html.light .theme-scope .border-indigo-200\/\[0\.07\],
+html.light .theme-scope .border-indigo-200\/\[0\.08\],
+html.light .theme-scope .border-indigo-200\/\[0\.09\],
+html.light .theme-scope .border-indigo-200\/10,
+html.light .theme-scope .border-indigo-200\/15,
+html.light .theme-scope .border-indigo-200\/20 {
+  border-color: rgba(99, 102, 241, 0.16);
+}
+html.light .theme-scope .text-white\/15 {
+  color: rgba(99, 102, 241, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-spin,
+  .nebula-orb {
+    animation: none;
+  }
+}
